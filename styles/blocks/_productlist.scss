@@ -1,0 +1,17 @@
+.product-list {
+   display: flex;
+   width: 100%;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: start;
+   gap: 20px;
+   &__title {
+      letter-spacing: 1px;
+      color: #696969;
+   }
+   &__items {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+   }
+}

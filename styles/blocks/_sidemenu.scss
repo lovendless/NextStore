@@ -1,0 +1,84 @@
+.side-menu {
+   position: relative;
+   width: 84px;
+   &__inner {
+      position: fixed;
+      top: 50px;
+      bottom: 0;
+      left: 0;
+      width: 64px;
+      overflow: auto;
+      padding: 0 10px;
+      flex-direction: column;
+      align-items: flex-start;
+      background: #ccc;
+      box-sizing: border-box;
+      z-index: 20;
+      letter-spacing: 1px;
+      gap: 15px;
+   }
+
+   &__list {
+      gap: 10px;
+      flex-direction: column;
+      align-items: flex-start;
+   }
+
+   &__item {
+      width: 100%;
+   }
+
+   &__link {
+      margin: auto;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      gap: 5px;
+   }
+
+   &__link.active {
+      font-weight: bold;
+   }
+}
+
+.fav-link {
+   position: relative;
+   display: flex;
+   align-items: center;
+   gap: 5px;
+   &__amount {
+      position: absolute;
+      font-size: 14px;
+      top: -10px;
+      right: -10px;
+      width: 25px;
+      height: 25px;
+      padding: 5px;
+      text-align: center;
+      background: #b7233c;
+      border-radius: 100%;
+   }
+}
+
+.side-menu.active {
+   width: 184px;
+   .side-menu__inner {
+      width: 164px;
+      padding: 0 20px;
+   }
+}
+
+.profile-btn,
+.sign-in,
+.fav-link {
+   position: relative;
+   display: flex;
+   align-items: center;
+   font-size: 16px;
+   font-weight: bold;
+   color: #fff;
+   padding: 10px;
+   border-radius: 8px;
+   background: rgba(109, 0, 212);
+   gap: 5px;
+}

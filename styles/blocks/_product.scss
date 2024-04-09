@@ -1,0 +1,16 @@
+.product-page{
+   &__inner{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+   }
+   &__product{
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: flex-start;
+      justify-content: space-between;
+      gap:10px;
+   }
+}

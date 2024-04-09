@@ -1,0 +1,36 @@
+.login{
+   align-items: center;
+   flex-direction: column;
+   gap: 10px;
+}
+
+.or{
+   position: relative;
+   display: flex;
+   justify-content: center;
+   width: 100%;
+   &::before{
+      content: '';
+      position: absolute;
+      left: 0%;
+      top:50%;
+      width: 6em;
+      height: 1px;
+      background: #fff;
+   }
+   &::after{
+      content: '';
+      position: absolute;
+      right: 0%;
+      top:50%;
+      width: 6em;
+      height: 1px;
+      background: #fff;
+   }
+}
+
+.google {
+   font-size: 18px;
+   background-color: #b50404;
+}
+

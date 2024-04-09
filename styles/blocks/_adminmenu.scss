@@ -1,0 +1,48 @@
+.admin-menu {
+   position: relative;
+   display: flex;
+   align-items: center;
+   width: 100vw;
+   padding: 0 20px;
+   height: 4rem;
+   &__inner {
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+   }
+
+   &__nav {
+      margin: 0px 24px;
+   }
+
+   &__list {
+      gap: 15px;
+      flex-direction: row;
+      align-items: flex-start;
+   }
+
+   &__link {
+      position: relative;
+      font-size: 16px;
+      font-weight: bold;
+      color: #696969;
+      letter-spacing: 1px;
+   }
+
+   &__link.active {
+      color: #515151;
+      &::after{
+         content:"";
+         position: absolute;
+         bottom: 0;
+         left:0px;
+         right:0px;
+         width: 90%;
+         height: 1px;
+         margin: 0 auto;
+         background-color: #696969;
+      }
+   }
+
+   
+}

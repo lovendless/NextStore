@@ -1,0 +1,74 @@
+.skeleton-list {
+   display: flex;
+   width: 100%;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: start;
+   gap: 20px;
+   &__items{
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+   }
+}
+
+.skeleton-title{
+   position: relative;
+   height: 25px;
+   width: 150px;
+   overflow: hidden;
+   background: #ccc;
+   border-radius: 8px;
+}
+
+.skeleton-p{
+   margin-bottom: 5px;
+   position: relative;
+   height: 15px;
+   width: 100px;
+   overflow: hidden;
+   background: #ccc;
+   border-radius: 8px;
+}
+.skeleton-button{
+   position: relative;
+   height: 60px;
+   width: 100%;
+   overflow: hidden;
+   background: #ccc;
+   border-radius: 8px;
+}
+.skeleton-desc{
+   position: relative;
+   height: 100px;
+   width: 100%;
+   overflow: hidden;
+   background: #ccc;
+   border-radius: 8px;
+}
+
+.skeleton-square{
+   position: relative;
+   overflow: hidden;
+   aspect-ratio: 1 / 1;
+   border-radius: 8px;
+   background: #ccc;
+}
+
+.skeleton-wrapper {
+   position: relative;
+   height: 40px;
+   overflow: hidden;
+   background: #ccc;
+   border-radius: 8px;
+}
+
+.skeleton-indicator {
+   position: absolute;
+   left: 150px;
+   top: 0;
+   height: 100%;
+   width: 150px;
+   background: linear-gradient(to right, transparent 0%, #e8e8e8 50%, transparent 100%);
+   animation: leftToRight 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}

@@ -1,0 +1,65 @@
+.gallery {
+   position: relative;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column-reverse;
+   gap: 8px;
+   &__show-pics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+   }
+   &__tab {
+      position: relative;
+      display: flex;
+      aspect-ratio: 1 / 1;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: #fff;
+   }
+   &__image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 1 / 1;
+      inset: 0;
+      overflow: hidden;
+      border-radius: 8px;
+   }
+   &__panel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+   }
+   .gallery-image {
+      object-fit: cover;
+      object-position: center;
+      border-radius: 8px;
+   }
+   .ring-image {
+      position: absolute;
+      inset: 0;
+      border-radius: 8px;
+      box-shadow: inset 0 0 0 3px transparent;
+   }
+   .ring-image.active {
+      box-shadow: inset 0 0 0 3px #696969;
+   }
+
+}
+.tab-enter {
+   transition: opacity 1s ease;
+}
+
+.tab-enter-from {
+   opacity: 0;
+}
+
+.tab-enter-to {
+   opacity: 1;
+}

@@ -1,0 +1,170 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+   provider = "prisma-client-js"
+}
+
+datasource db {
+   provider = "postgresql"
+   url      = env("DATABASE_URL")
+}
+
+enum Role {
+   USER
+   ADMIN
+}
+
+model User {
+   id       String @id @default(uuid())
+   email    String @unique @db.VarChar(255)
+   username String @unique @db.VarChar(255)
+   password String @db.VarChar(255)
+
+   role Role @default(USER)
+
+   active Boolean @default(false)
+
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+
+   ActivateTokens ActivateToken[]
+}
+
+model ActivateToken {
+   id          String  @id @default(uuid())
+   token       String  @unique
+   valid       Boolean @default(true)
+   verifyToken Boolean @default(false)
+   resetToken  Boolean @default(false)
+
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+
+   user   User   @relation(fields: [userId], references: [id])
+   userId String
+}
+
+model Billboard {
+   id         String  @id @default(uuid())
+   label      String
+   imageUrl   String
+   isFeatured Boolean @default(false)
+
+   createdAt  DateTime   @default(now())
+   updatedAt  DateTime   @updatedAt
+   categories Category[]
+}
+
+model Category {
+   id   String @id @default(uuid())
+   name String
+
+   billboardId String
+   billboard   Billboard @relation(fields: [billboardId], references: [id])
+
+   createdAt DateTime  @default(now())
+   updatedAt DateTime  @updatedAt
+   products  Product[]
+}
+
+model Product {
+   id          String   @id @default(uuid())
+   name        String
+   description String
+   price       Decimal
+   category    Category @relation(fields: [categoryId], references: [id])
+   categoryId  String
+   isArchived  Boolean  @default(false)
+
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+
+   availableCities ProductCity[]
+   images          ProductImage[]
+
+   orderItems OrderItem[]
+   emails     ProductNotify[]
+}
+
+model ProductImage {
+   id  String @id @default(uuid())
+   url String
+
+   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+   productId String
+
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+}
+
+model City {
+   id      String  @id @default(uuid())
+   name    String  @unique
+   default Boolean @default(false)
+
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+
+   availableProducts ProductCity[]
+   emails     ProductNotify[]
+}
+
+model ProductCity {
+   city   City   @relation(fields: [cityId], references: [id], onDelete: Cascade)
+   cityId String
+
+   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+   productId String
+
+   available Boolean @default(true) // if false product or city is not available 
+   quantity  Int // if 0 or null product is not available
+
+   addedAt   DateTime @default(now())
+   updatedAt DateTime @updatedAt
+
+   @@id([cityId, productId])
+}
+
+model ProductNotify {
+   email String
+
+   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+   productId String
+
+   city   City   @relation(fields: [cityId], references: [id], onDelete: Cascade)
+   cityId String
+
+   addedAt   DateTime @default(now())
+   updatedAt DateTime @updatedAt
+
+   @@id([cityId, productId])
+}
+
+model Order {
+   id       String  @id @default(uuid())
+   isPaid   Boolean @default(false)
+   customer String
+   phone    String  @default("")
+   address  String  @default("")
+
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+
+   orderItems OrderItem[]
+}
+
+model OrderItem {
+   id String @id @default(uuid())
+
+   order   Order  @relation(fields: [orderId], references: [id])
+   orderId String
+
+   product   Product @relation(fields: [productId], references: [id])
+   productId String
+
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+}
+
+//npx prisma migrate dev --name init

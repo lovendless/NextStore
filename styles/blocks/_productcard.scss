@@ -1,0 +1,97 @@
+.product-card {
+   margin-right: -1px;
+   margin-bottom: -1px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   background-color: #fff;
+   border: 1px solid #ccc;
+   border-radius: 8px;
+   box-sizing: border-box;
+   color: #2d2b47;
+   gap: 10px;
+   &__image {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      border-radius: 8px;
+      background: #ccc;
+      .card-image {
+         aspect-ratio: 1 / 1;
+         object-fit: cover;
+         border-radius: 8px;
+      }
+   }
+   &__description {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      letter-spacing: 1px;
+      text-transform: capitalize;
+      gap: 5px;
+   }
+   &__image-icons {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+   }
+   &__image-icons-flex {
+      cursor: pointer;
+   }
+   
+}
+
+.like{
+   color: #ec376f;
+}
+.like.active{
+   fill: red;
+}
+
+.available-btns {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+   gap: 10px;
+   .minus-plus{
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: 10px; 
+   }
+}
+
+.available-btn {
+   width: 100%;
+   gap: 10px;
+}
+.available-btn {
+   width: 100%;
+   gap: 10px;
+}
+
+.shopping-cart-btn{
+   gap: 5px;
+}
+
+.product-card-size-default {
+   padding: 32px 24px;
+}
+
+@media (min-width: 576px) {
+   .goods-grid__cell-size {
+      width: 50%;
+   }
+}
+
+@media (min-width: 992px) {
+   .goods-grid__cell-size {
+      width: 33.333%;
+   }
+}
+
+@media (min-width: 1336px) {
+   .goods-grid__cell-size {
+      width: 25%;
+   }
+}

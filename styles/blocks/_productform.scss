@@ -1,0 +1,19 @@
+.input-image{
+   &__selected-block{
+      gap: 10px;
+   }
+   &__image-list{
+      gap: 10px;
+   }
+   &__image-item{
+      gap:10px;
+      position: relative;
+   }
+   &__image-btn{
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 6px;
+      opacity: .9;
+   }
+}

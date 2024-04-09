@@ -1,0 +1,91 @@
+{
+   "cities": [
+      {
+         "name": "novosibirsk",
+         "products": [
+            {
+               "id": "1",
+               "title": "product 1",
+               "description": "description 1",
+               "price": "12.99"
+            },
+            {
+               "id": "2",
+               "title": "product 2",
+               "description": "description 2",
+               "price": "123.99"
+            },
+            {
+               "id": "4",
+               "title": "product 4",
+               "description": "description 4",
+               "price": "23.99"
+            },
+            {
+               "id": "5",
+               "title": "product 5",
+               "description": "description 5",
+               "price": "132.99"
+            }
+         ]
+      },
+      {
+         "name": "moscow", 
+         "products": [
+            {
+               "id": "13",
+               "title": "product 13",
+               "description": "description 13",
+               "price": "1234.99"
+            },
+            {
+               "id": "23",
+               "title": "product 23",
+               "description": "description 23",
+               "price": "123.99"
+            },
+            {
+               "id": "43",
+               "title": "product 43",
+               "description": "description 43",
+               "price": "233.99"
+            },
+            {
+               "id": "53",
+               "title": "product 53",
+               "description": "description 53",
+               "price": "132.99"
+            }
+         ]
+      },
+      {
+        "name": "saint-peter",
+        "products": [
+            {
+               "id": "91",
+               "title": "product 91",
+               "description": "description 91",
+               "price": "1234.99"
+            },
+            {
+               "id": "81",
+               "title": "product 81",
+               "description": "description 81",
+               "price": "123.99"
+            },
+            {
+               "id": "41",
+               "title": "product 41",
+               "description": "description 41",
+               "price": "233.99"
+            },
+            {
+               "id": "61",
+               "title": "product 61",
+               "description": "description 63",
+               "price": "132.99"
+            }
+         ]
+      }
+   ]
+}

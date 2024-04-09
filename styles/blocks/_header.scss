@@ -1,0 +1,100 @@
+.header {
+   position: relative;
+   width: 100vw;
+   height: 50px;
+   z-index: 50;
+   &__inner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 50px;
+      padding: 0px 20px;
+      justify-content: space-between;
+      align-items: center;
+      background: #ccc;
+   }
+   .current-city {
+      margin-left: auto;
+      margin-right: -10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      span {
+         letter-spacing: 1px;
+         color: #515151;
+         &:last-child {
+            color: rgba(109, 0, 212);
+         }
+      }
+   }
+   .search {
+      margin-left: auto;
+      margin-right: 10px;
+      height: 34px;
+      position: relative;
+      display: flex;
+      overflow: hidden;
+      border-radius: 5px;
+      &__icon {
+         position: absolute;
+         left: 5px;
+         top: 50%;
+         color: #9a9bb8;
+         pointer-events: none;
+         transform: translateY(-50%);
+      }
+      &__input {
+         padding-left: 24px;
+         padding-right: 16px;
+         outline: none;
+      }
+      &__btn {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         height: 100%;
+         overflow: hidden;
+         background: rgba(109, 0, 212);
+         border-top-right-radius: 8px;
+         border-bottom-right-radius: 8px;
+         color: #fff;
+         padding: 5px;
+         span {
+            font-size: 12px;
+         }
+      }
+   }
+   .menu {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+   }
+   .cart-action {
+      display: flex;
+      align-items: center;
+      &__btn {
+         position: relative;
+         padding: 8px;
+         display: flex;
+         align-items: center;
+         border-radius: 8px;
+         background: rgba(109, 0, 212);
+         gap: 5px;
+      }
+      &__amount {
+         position: absolute;
+         top: -5px;
+         right: -5px;
+         width: 18px;
+         height: 18px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 12px;
+         color: #fff;
+         background: #b7233c;
+         border-radius: 100%;
+      }
+   }
+}

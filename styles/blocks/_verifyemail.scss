@@ -1,0 +1,13 @@
+.verifyemail {
+   position: relative;
+   &__inner{
+      align-items: center;
+      flex-direction: column;
+      gap: 15px;
+   }
+}
+
+.verifyemail__verified {
+   align-items: center;
+   flex-direction: column;
+}
