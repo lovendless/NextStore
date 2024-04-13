@@ -1,7 +1,6 @@
 import Link from "next/link";
 import AdminNav from "./AdminNav";
 
-
 export default function AdminHeader(
    {
       params

@@ -2,7 +2,6 @@
 
 import { useCityModal } from "@/hooks/useCityModal";
 import { useCityWithProducts } from "@/hooks/useCityWithProducts";
-import { useCurrentCity } from "@/hooks/useCurrentCity";
 import { usePlaces } from "@/hooks/usePlaces";
 import { useSort } from "@/hooks/useSort";
 import { useState } from "react"
