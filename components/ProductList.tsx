@@ -2,7 +2,7 @@
 import { Product } from "@/new-types";
 import { ProductCard } from "./ProductCard";
 import Select from "./UI/select/Select";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSort } from "@/hooks/useSort";
 import loadMoreProducts from "@/actions/load-more-products";
 import { delay } from "@/lib/utils";
@@ -36,31 +36,34 @@ export const ProductList: React.FC<ProductListProps> = (
 
    const [pagesLoaded, setPagesLoaded] = useState(0);
 
+   const [loading, setLoading] = useState<boolean>(false);
    const [loaded, setLoaded] = useState<boolean>(false);
 
    const perPage = 4;
 
    const { ref, inView } = useInView();
 
-   const loadMore = async () => {
-      //await delay(1000)
+   const loadMore = useCallback(async () => {
+      setLoading(true)
+      //await delay(1000);
       const nextPage = pagesLoaded + 1;
       const skippedItems = nextPage * perPage;
-      const newProducts = await loadMoreProducts({ skip: skippedItems, take: perPage, category, q}) ?? [];
+      const newProducts = await loadMoreProducts({ skip: skippedItems, take: perPage, category, q }) ?? [];
       setProducts((prevProducts: Product[]) => {
          return [...prevProducts, ...newProducts]
       });
       setPagesLoaded(nextPage);
+      setLoading(false);
       if (!newProducts.length) {
-         return setLoaded(true);
+         setLoaded(true)
       }
-   }
+   }, [pagesLoaded, category, q]);
 
    useEffect(() => {
-      if (inView) {
+      if (inView && !loading) {
          loadMore();
       }
-   }, [inView])
+   }, [inView, loading, loadMore])
 
    return (
       <div className="product-list">
@@ -93,12 +96,17 @@ export const ProductList: React.FC<ProductListProps> = (
                ))
             }
          </div>
-         {!loaded &&
-            <div ref={ref} className="flex" style={{margin: 'auto', height: "50px", width: "50px" }}>
-               <div className="loader">
-               </div>
+
+         {!loaded && (
+            <div ref={ref} className="flex" style={{ margin: 'auto', height: "50px", width: "50px" }}>
+               {loading &&
+                  <div className="loader">
+                  </div>
+               }
             </div>
+         )
          }
+
       </div>
    )
 };

@@ -7,9 +7,9 @@ export async function POST(req: NextRequest) {
 
    try {
 
-      const body = await req.json()
-      const { token } = body
-      console.log(token)
+      const body = await req.json();
+      const { token } = body;
+     
 
       const user = await db.user.findFirst({
          where: {

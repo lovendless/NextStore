@@ -1,6 +1,6 @@
 'use client'
 import { useInView } from "react-intersection-observer"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import loadMoreProducts from "@/actions/load-more-products";
 import { Product } from "@/new-types";
 import { delay } from "@/lib/utils";
@@ -17,7 +17,7 @@ export default function LoadMore({ favIds }: { favIds: string[] }) {
 
    const { ref, inView } = useInView();
 
-   const loadMore = async () => {
+   const loadMore = useCallback( async () => {
       await delay(2000)
       const nextPage = pagesLoaded + 1;
       const skippedItems = nextPage * perPage;
@@ -29,11 +29,13 @@ export default function LoadMore({ favIds }: { favIds: string[] }) {
       if (!newProducts.length) {
          setLoaded(true);
       }
-   }
+   }, [pagesLoaded]);
 
    useEffect(() => {
-      loadMore();
-   }, [inView])
+      if (inView) {
+         loadMore();
+      }
+   }, [inView, loadMore])
 
    return (
       <>
@@ -44,11 +46,11 @@ export default function LoadMore({ favIds }: { favIds: string[] }) {
                ))
             }
          </div>
-         { !loaded &&
+         {!loaded &&
             <div ref={ref} className="flex" style={{ height: "50px", width: "50px" }}>
-            <div className="loader">
+               <div className="loader">
+               </div>
             </div>
-         </div>
          }
       </>
    )

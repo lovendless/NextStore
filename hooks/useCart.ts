@@ -50,7 +50,7 @@ export const useCart = create(
             return set({ items: [...filteredItems, { ...exsistItem, quantity: exsistItem.quantity - 1 }] });
          }
 
-         return set({ items: [...get().items.filter(item => item.id !== id)] });
+         return set({ items: [...filteredItems] });
 
       },
       removeAll: () => {
