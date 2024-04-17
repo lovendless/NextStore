@@ -188,7 +188,7 @@ export default function ProductForm(
             fileRef.current.value = null!;
 
             const newImageUrls = res.data.names.map((name: string) => ({
-               url: `/public/products/${name}`
+               url: `/products/${name}`
             }));
 
             uploadImageUrls.current = uploadImageUrls.current.concat(newImageUrls)

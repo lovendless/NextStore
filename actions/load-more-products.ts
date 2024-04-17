@@ -5,11 +5,13 @@ const loadMoreProducts = async (
    {
       skip,
       take,
+      productId,
       category,
       q,
    }: {
       skip: number,
       take: number,
+      productId?: string,
       category?: string,
       q?: string,
    }
@@ -20,6 +22,7 @@ const loadMoreProducts = async (
       query: {
          skip,
          take,
+         productId: productId ? productId : undefined,
          category: category ? category : undefined,
          q: q ? q : undefined
       }

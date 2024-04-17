@@ -4,54 +4,65 @@ import { useCallback, useEffect, useState } from "react"
 import loadMoreProducts from "@/actions/load-more-products";
 import { Product } from "@/new-types";
 import { delay } from "@/lib/utils";
-import { ProductCard } from "./ProductCard";
 
-export default function LoadMore({ favIds }: { favIds: string[] }) {
-   const [products, setProducts] = useState<Product[]>([]);
+export type LoadMoreProps = {
+   q?: string,
+   category?: string,
+   productId?: string,
+   isLoaded?: boolean,
+}
 
-   const [pagesLoaded, setPagesLoaded] = useState<number>(0);
+export default function LoadMore(
+   {
+      q,
+      category,
+      isLoaded,
+      products,
+      addProducts,
+      productId
+   }: LoadMoreProps & {
+      products: Product[],
+      addProducts: (value: Product[]) => void,
+   }
+) {
 
-   const [loaded, setLoaded] = useState<boolean>(false);
+   const [pagesLoaded, setPagesLoaded] = useState(0);
+
+   const [loading, setLoading] = useState<boolean>(false);
+   const [loaded, setLoaded] = useState<boolean>(isLoaded ? isLoaded : false);
 
    const perPage = 4;
 
    const { ref, inView } = useInView();
 
-   const loadMore = useCallback( async () => {
-      await delay(2000)
+   const loadMore = useCallback(async () => {
+      setLoading(true)
+      //await delay(1000);
       const nextPage = pagesLoaded + 1;
       const skippedItems = nextPage * perPage;
-      const newProducts = await loadMoreProducts({ skip: skippedItems, take: perPage }) ?? [];
-      setProducts((prevProducts: Product[]) => {
-         return [...prevProducts, ...newProducts]
-      });
+      const newProducts = await loadMoreProducts({ skip: skippedItems, take: perPage, category, q, productId}) ?? [];
+      addProducts([...products, ...newProducts]);
       setPagesLoaded(nextPage);
+      setLoading(false);
       if (!newProducts.length) {
-         setLoaded(true);
+         setLoaded(true)
       }
-   }, [pagesLoaded]);
+   }, [pagesLoaded, addProducts, products, productId, category, q]);
 
    useEffect(() => {
-      if (inView) {
+      if (inView && !loading) {
          loadMore();
       }
-   }, [inView, loadMore])
+   }, [inView, loading, loadMore])
 
    return (
-      <>
-         <div className="product-list__items">
-            {
-               products.map((product) => (
-                  <ProductCard key={product.id} data={product} favCookie={favIds} />
-               ))
-            }
-         </div>
-         {!loaded &&
-            <div ref={ref} className="flex" style={{ height: "50px", width: "50px" }}>
+      !loaded && (
+         <div ref={ref} className="flex" style={{ margin: 'auto', height: "50px", width: "50px" }}>
+            {loading &&
                <div className="loader">
                </div>
-            </div>
-         }
-      </>
+            }
+         </div>
+      )
    )
 }

@@ -2,29 +2,27 @@
 import { Product } from "@/new-types";
 import { ProductCard } from "./ProductCard";
 import Select from "./UI/select/Select";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { useSort } from "@/hooks/useSort";
-import loadMoreProducts from "@/actions/load-more-products";
-import { delay } from "@/lib/utils";
-import { useInView } from "react-intersection-observer";
+import LoadMore, { LoadMoreProps } from "./LoadMore";
 
-interface ProductListProps {
+type ProductListProps = {
+   favIds: string[],
+   data: Product[],
    filter?: boolean,
    title?: string,
-   category?: string,
-   q?: string,
-   favIds: string[],
-   data: Product[]
-}
+} & LoadMoreProps
 
 export const ProductList: React.FC<ProductListProps> = (
    {
+      favIds,
+      data,
       filter,
       title,
-      favIds,
+      productId,
       category,
       q,
-      data
+      isLoaded,
    }
 ) => {
 
@@ -33,37 +31,6 @@ export const ProductList: React.FC<ProductListProps> = (
    const [sort, setSort] = useState('');
 
    const sortedData = useSort(products, sort);
-
-   const [pagesLoaded, setPagesLoaded] = useState(0);
-
-   const [loading, setLoading] = useState<boolean>(false);
-   const [loaded, setLoaded] = useState<boolean>(false);
-
-   const perPage = 4;
-
-   const { ref, inView } = useInView();
-
-   const loadMore = useCallback(async () => {
-      setLoading(true)
-      //await delay(1000);
-      const nextPage = pagesLoaded + 1;
-      const skippedItems = nextPage * perPage;
-      const newProducts = await loadMoreProducts({ skip: skippedItems, take: perPage, category, q }) ?? [];
-      setProducts((prevProducts: Product[]) => {
-         return [...prevProducts, ...newProducts]
-      });
-      setPagesLoaded(nextPage);
-      setLoading(false);
-      if (!newProducts.length) {
-         setLoaded(true)
-      }
-   }, [pagesLoaded, category, q]);
-
-   useEffect(() => {
-      if (inView && !loading) {
-         loadMore();
-      }
-   }, [inView, loading, loadMore])
 
    return (
       <div className="product-list">
@@ -96,17 +63,14 @@ export const ProductList: React.FC<ProductListProps> = (
                ))
             }
          </div>
-
-         {!loaded && (
-            <div ref={ref} className="flex" style={{ margin: 'auto', height: "50px", width: "50px" }}>
-               {loading &&
-                  <div className="loader">
-                  </div>
-               }
-            </div>
-         )
-         }
-
+         <LoadMore
+            products={products}
+            addProducts={(value: Product[]) => setProducts(value)}
+            productId={productId}
+            q={q}
+            category={category}
+            isLoaded={isLoaded}
+         />
       </div>
    )
 };

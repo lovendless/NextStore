@@ -108,7 +108,7 @@ export default function BillboardForm(
 
             const newImageUrl = res.data.name;
 
-            uploadImageUrl.current = `/public/billboards/${newImageUrl}`;
+            uploadImageUrl.current = `/billboards/${newImageUrl}`;
 
          }
 

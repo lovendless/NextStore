@@ -5,6 +5,7 @@ import { ProductList } from "@/components/ProductList";
 import Separator from "@/components/UI/separator/Separator";
 import Gallery from "@/components/gallery";
 import { getFavIds } from "@/lib/actions";
+import { Product } from "@/new-types";
 import { Metadata, ResolvingMetadata } from "next";
 
 interface ProductPageProps {
@@ -69,7 +70,7 @@ export default async function ProductPage(
                <Info data={product!} />
             </div>
             <Separator />
-            <ProductList title={'Related items'} favIds={favIds} data={suggestedProducts} />
+            <ProductList title={'Related items'} favIds={favIds} data={suggestedProducts} productId={product?.id} category={product?.category?.name}/>
          </div>
       </section>
    )

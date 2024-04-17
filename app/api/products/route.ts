@@ -8,6 +8,7 @@ export async function GET(req: NextRequest) {
       const { searchParams } = new URL(req.url);
       const take = searchParams.get('take');
       const skip = searchParams.get('skip');
+      const productId = searchParams.get('productId');
       const category = searchParams.get('category');
       const q = searchParams.get('q');
 
@@ -19,7 +20,8 @@ export async function GET(req: NextRequest) {
          skip: Number(skip),
          where: {
             NOT: [
-               { isArchived: true }
+               { id: productId ? productId : undefined },
+               { isArchived: true },
             ],
             category: {
                name: category ? category : undefined
@@ -27,9 +29,7 @@ export async function GET(req: NextRequest) {
             name: {
                startsWith: q ? q : undefined
             }
-
          },
-
          include: {
             category: true,
             images: true,
@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
          orderBy: {
             createdAt: 'desc'
          },
-      })
+      });
 
       return NextResponse.json({ products }, { status: 200 });
 
