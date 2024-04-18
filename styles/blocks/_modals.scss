@@ -17,7 +17,6 @@
       border-radius: 16px;
       min-width: 350px;
    }
-
 }
 
 .modal.active {
@@ -34,8 +33,17 @@
    display: flex;
    justify-content: center;
    align-items: center;
+   flex-direction: column;
    background: #fff;
    z-index: 1000;
+   gap: 30px;
+   &__title {
+      margin-top: -60px;
+      font-size: 42px;
+      font-weight: bold;
+      color: rgba(0, 0, 0, 0.6);
+      letter-spacing: 1px;
+   }
    &__content {
       padding: 20px;
       max-width: 420px;
@@ -48,5 +56,4 @@
       border-radius: 16px;
       min-width: 250px;
    }
-   
 }

@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
 
       const user = await db.user.findFirst({
          where: {
-            ActivateTokens: {
+            activateTokens: {
                some: {
                   AND: [
                      {

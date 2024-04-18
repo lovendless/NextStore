@@ -16,15 +16,15 @@ export async function POST(req: NextRequest) {
 
       //check if email already exists
       const existingUserByEmail = await db.user.findUnique({
-         where: { email: email }
+         where: { email }
       })
 
       //check if username already exists
       const existingUserByUsername = await db.user.findUnique({
-         where: { username: username }
+         where: { name: username }
       })
 
-      if (existingUserByEmail?.active == false) {
+      if (existingUserByEmail?.emailVerified === null) {
 
          //? send verification email
          await sendEmail({ email, emailType: "VERIFY", userId: existingUserByEmail.id })
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
 
       const newUser = await db.user.create({
          data: {
-            username,
+            name: username,
             email,
             password: hashedPwd
          }

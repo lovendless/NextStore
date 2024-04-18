@@ -10,7 +10,7 @@ export function withCorsMiddleware(middleware: CustomMiddleware) {
    return async (req: NextRequest, event: NextFetchEvent) => {
       // retrieve the current response
       const response = NextResponse.next()
-      //console.log(req.nextUrl.pathname)
+      
       // retrieve the HTTP "Origin" header 
       // from the incoming request
       const origin = req.headers.get("origin")

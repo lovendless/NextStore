@@ -1,5 +1,4 @@
 .login{
-   align-items: center;
    flex-direction: column;
    gap: 10px;
 }
@@ -29,8 +28,12 @@
    }
 }
 
-.google {
-   font-size: 18px;
-   background-color: #b50404;
+.google{
+   font-size: 16px;
+   background: $btn-google-color;
+   gap: 10px;
 }
 
+.github{
+   background: $btn-github-color;
+}

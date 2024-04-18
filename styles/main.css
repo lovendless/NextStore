@@ -262,6 +262,7 @@ button {
   font-size: 16px;
   display: flex;
   align-items: center;
+  justify-content: center;
   font-weight: bold;
   color: #fff;
   padding: 10px;
@@ -787,8 +788,17 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   background: #fff;
   z-index: 1000;
+  gap: 30px;
+}
+.authmodal__title {
+  margin-top: -60px;
+  font-size: 42px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.6);
+  letter-spacing: 1px;
 }
 .authmodal__content {
   padding: 20px;
@@ -804,7 +814,6 @@ textarea {
 }
 
 .login {
-  align-items: center;
   flex-direction: column;
   gap: 10px;
 }
@@ -835,8 +844,13 @@ textarea {
 }
 
 .google {
-  font-size: 18px;
-  background-color: #b50404;
+  font-size: 16px;
+  background: #b7233c;
+  gap: 10px;
+}
+
+.github {
+  background: #212121;
 }
 
 .instructions {
@@ -1178,12 +1192,6 @@ textarea {
 }
 
 .available-btn {
-  width: 100%;
-  gap: 10px;
-}
-
-.available-btn {
-  width: 100%;
   gap: 10px;
 }
 

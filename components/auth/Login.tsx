@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { CredentialsForm } from './CredentialsForm'
+import GitHubButton from '../UI/buttons/GitHubButton'
 import GoogleButton from '../UI/buttons/GoogleButton'
 import { useAuthForm } from '@/hooks/useAuthForm'
 import { useEffect, useRef } from 'react'
@@ -28,6 +29,7 @@ export default function Login() {
                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
                   {errMsg}
                </p>
+               <GitHubButton/>
                <GoogleButton />
                <span className="or">or</span>
                <CredentialsForm />

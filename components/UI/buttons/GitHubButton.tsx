@@ -2,8 +2,9 @@
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { useAuthForm } from '@/hooks/useAuthForm';
+import { GithubIcon } from 'lucide-react';
 
-export default function GoogleButton() {
+export default function GitHubButton() {
    const { isLoading, startLoading, endLoading } = useAuthForm();
 
    const searchParams = useSearchParams();
@@ -12,7 +13,7 @@ export default function GoogleButton() {
    const handleClick = async () => {
       startLoading()
 
-      await signIn('google', {
+      await signIn('github', {
          callbackUrl
       })
 
@@ -20,8 +21,9 @@ export default function GoogleButton() {
    }
 
    return (
-      <button className='btn google' disabled={isLoading} onClick={() => handleClick()}>
-         Sign in with Google
+      <button className='btn github' disabled={isLoading} onClick={() => handleClick()}>
+         <GithubIcon size={20}/>
+         Sign in with GitHub
       </button>
    )
 }

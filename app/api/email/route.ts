@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
       const existingUserByEmail = await db.user.findUnique({
          where: {
-            email: email
+            email
          }
       })
 

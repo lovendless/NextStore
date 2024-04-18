@@ -71,8 +71,8 @@ export const sendEmail = async ({ email, emailType, userId }: MailerProps) => {
          from: 'i.k.shevery@gmail.com',
          to: email,
          subject: emailType === "VERIFY" ? 'Verify your email' : 'Reset your password',
-         html: `<p>Click ${emailType === "VERIFY" ? `${process.env.DOMAIN}/verifyemail?token=${token} to verify your email` :
-            `${process.env.DOMAIN}/resetpwd?token=${token} to reset your password`}`
+         html: `<p>Click ${emailType === "VERIFY" ? `${process.env.NEXT_PUBLIC_API_URL}/verifyemail?token=${token} to verify your email` :
+            `${process.env.NEXT_PUBLIC_API_URL}/resetpwd?token=${token} to reset your password`}`
       }
 
       const mailresponse = sendgrid.send(mailOptions);

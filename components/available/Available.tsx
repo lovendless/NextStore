@@ -46,7 +46,7 @@ export const Available = (
          <>
             <NotifyModal data={data} isOpen={isOpen} onClose={() => setIsOpen(false)} />
             <button onClick={() => setIsOpen(true)} className="available-btn btn flex al-items-center justify-content-bw">
-               <Bell size={35} />
+               <Bell />
                <span>Notify when product is available</span>
             </button>
          </>
