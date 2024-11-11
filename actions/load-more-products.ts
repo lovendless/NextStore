@@ -1,6 +1,14 @@
 import axios from "@/config/axios";
 import qs from "query-string";
 
+interface LoadMoreProps {
+   skip: number,
+   take: number,
+   productId?: string,
+   category?: string,
+   q?: string,
+}
+
 const loadMoreProducts = async (
    {
       skip,
@@ -8,13 +16,7 @@ const loadMoreProducts = async (
       productId,
       category,
       q,
-   }: {
-      skip: number,
-      take: number,
-      productId?: string,
-      category?: string,
-      q?: string,
-   }
+   }: LoadMoreProps
 ) => {
 
    const url = qs.stringifyUrl({

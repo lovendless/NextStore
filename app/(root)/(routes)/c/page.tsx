@@ -43,7 +43,7 @@ export default async function CPage(
                   </div>
                   <div className="catalog__side-categories">
                   <h3>Category</h3>
-                  <ul className="catalog__side-list">
+                  <ul className="catalog__side-list"> 
                      {categories.map((category, idx) => (
                         <li key={idx}>
                            <Link href={`/c/${category.name}`}>

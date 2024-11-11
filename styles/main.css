@@ -242,6 +242,12 @@ button {
 
 input[type=text],
 input[type=password],
+input[type=number] {
+  height: 30px;
+}
+
+input[type=text],
+input[type=password],
 input[type=number],
 textarea {
   cursor: pointer;
@@ -814,6 +820,7 @@ textarea {
 }
 
 .login {
+  width: 280px;
   flex-direction: column;
   gap: 10px;
 }
@@ -851,6 +858,10 @@ textarea {
 
 .github {
   background: #212121;
+}
+
+.register {
+  width: 280px;
 }
 
 .instructions {

@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 
-export const getFavIds = async () => {
+export const getFavIds = async (): Promise<string[]> => {
    let fav = cookies().get('fav')?.value;
 
    if (!fav) {

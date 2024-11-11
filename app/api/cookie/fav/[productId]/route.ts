@@ -25,14 +25,14 @@ export async function POST(
       if (prevFavArray?.includes(params.productId)) {
          const filteredArray = prevFavArray.filter(item => item !== params.productId);
 
-         prevFav = filteredArray.join().replaceAll(',', '%2C');
+         prevFav = encodeURIComponent(filteredArray.join());
 
          return NextResponse.json({ fav: filteredArray }, { status: 200, headers: { "Set-Cookie": `fav=${prevFav};path=/;` } });
       }
 
-      prevFav = prevFav.replaceAll(',', '%2C');
+      prevFav += `,${params.productId}`;
 
-      prevFav += `%2C${params.productId}`
+      prevFav = encodeURIComponent(prevFav);
 
       return NextResponse.json({ fav: [...prevFavArray, params.productId] }, { status: 200, headers: { "Set-Cookie": `fav=${prevFav};path=/;` } });
 

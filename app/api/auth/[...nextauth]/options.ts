@@ -49,10 +49,10 @@ export const options: NextAuthOptions = {
                }
             })
 
-            if (!existingUser) return null;
+            if (!existingUser || !existingUser?.password) throw new Error('Invalid credentials');
 
             if (!existingUser.emailVerified) {
-               throw new Error('User is not active')
+               throw new Error('User is not active');
             }
 
             const passwordMatch = await compare(credentials.password, existingUser.password!);
@@ -93,7 +93,7 @@ export const options: NextAuthOptions = {
          return session
       },
       async signIn({ user, profile, account }) {
-         console.log(user, profile, account); 
+      
          if (!user.email) {
             return false;
          }

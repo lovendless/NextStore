@@ -30,6 +30,8 @@ export const ProductCard: React.FC<ProductCardProps> = (
 
    const { isRefetch, setIsRefetch } = useFavProducts();
 
+   const [mouseOver, setMouseOver] = useState<Boolean>(false);
+
    const getFavorites = useCallback(async () => {
       const favs = await getFavCookie();
       setFavIds(favs);
@@ -65,8 +67,8 @@ export const ProductCard: React.FC<ProductCardProps> = (
       <div className="product-card flex direction-col product-card-size-default goods-grid__cell-size">
          {/* Image and Actions */}
          <div className="product-card__image ">
-            <Link href={`/p/${data?.id}`}>
-               <Image className="card-image" src={data?.images?.[0]?.url} alt={data?.name} fill sizes="auto" priority />
+            <Link href={`/p/${data?.id}`} onMouseOver={() => setMouseOver(true)} onMouseLeave={() => setMouseOver(false)}> 
+               <Image className="card-image" src={mouseOver ? data?.images?.[1]?.url ?? data?.images?.[0]?.url : data?.images?.[0]?.url} alt={data?.name} fill sizes="auto" priority />
             </Link>
             <div className="product-card__image-icons">
                <div className="product-card__image-icons-flex">

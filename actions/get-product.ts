@@ -2,7 +2,7 @@
 import { db } from "@/lib/db";
 import { Product } from "@/new-types";
 
-const getProduct = async (productId: string): Promise<Product | null> => {
+const getProduct = async (productId: string): Promise<Product> => {
 
    const product = await db.product.findUnique({
       where: {
@@ -18,9 +18,7 @@ const getProduct = async (productId: string): Promise<Product | null> => {
       }
    });
 
-   if (product) return product;
-   
-   return null;
+   return JSON.parse(JSON.stringify(product));
 };
 
 export default getProduct

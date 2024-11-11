@@ -1,6 +1,6 @@
 import { db } from './db';
 import { randomUUID } from 'crypto';
-import sendgrid from '@sendgrid/mail';
+import nodemailer from 'nodemailer';
 
 interface MailerProps {
    email: string,
@@ -10,24 +10,6 @@ interface MailerProps {
 
 export const sendEmail = async ({ email, emailType, userId }: MailerProps) => {
    try {
-
-      //await db.user.update({
-      //   where: {
-      //      id: userId,
-      //   },
-      //   data: {
-      //      ActivateTokens: {
-      //         updateMany: {
-      //            where: {
-      //               valid: true
-      //            },
-      //            data: {
-      //               valid: false
-      //            }
-      //         }
-      //      }
-      //   }
-      //});
 
       await db.activateToken.updateMany({
          where: {
@@ -65,49 +47,59 @@ export const sendEmail = async ({ email, emailType, userId }: MailerProps) => {
 
       //?================ SENDGRID ================
 
-      sendgrid.setApiKey(process.env.SENDGRID_API_KEY!)
-
-      const mailOptions = {
-         from: 'i.k.shevery@gmail.com',
-         to: email,
-         subject: emailType === "VERIFY" ? 'Verify your email' : 'Reset your password',
-         html: `<p>Click ${emailType === "VERIFY" ? `${process.env.NEXT_PUBLIC_API_URL}/verifyemail?token=${token} to verify your email` :
-            `${process.env.NEXT_PUBLIC_API_URL}/resetpwd?token=${token} to reset your password`}`
-      }
-
-      const mailresponse = sendgrid.send(mailOptions);
-
-      return mailresponse
-
-      //?================ RESEND ================
-
-      //const resend = new Resend(process.env.RESEND_API_KEY);
-
-      //  const mailresponse = await resend.emails.send(mailOptions);
-
-
-      //?================ NODEMAILER with MailTrap ================
-
-      //var transport = nodemailer.createTransport({
-      //   host: "sandbox.smtp.mailtrap.io",
-      //   port: 2525,
-      //   auth: {
-      //      user: "d265214b12280c",
-      //      pass: "871ecad833af95"
-      //   }
-      //});
+      //sendgrid.setApiKey(process.env.SENDGRID_API_KEY!)
 
       //const mailOptions = {
       //   from: 'i.k.shevery@gmail.com',
       //   to: email,
       //   subject: emailType === "VERIFY" ? 'Verify your email' : 'Reset your password',
-      //   html: `<p>Click <a href="${process.env.domain}/verifyemail?token=${token}">here</a> to ${emailType === "VERIFY" ? "verify your email" :
-      //         'reset your password'}
-      //        <br> ${process.env.domain}/verifyemail?token=${token}`
-
-
+      //   html: `<p>Click ${emailType === "VERIFY" ? `${process.env.NEXT_PUBLIC_API_URL}/verifyemail?token=${token} to verify your email` :
+      //      `${process.env.NEXT_PUBLIC_API_URL}/resetpwd?token=${token} to reset your password`}`
       //}
 
+      //try {
+      //   // Send the email and wait for the response
+      //   const mailResponse = await sendgrid.send(mailOptions);
+      //   console.log('Email sent successfully', mailResponse);
+      //   return mailResponse;
+      //} catch (error) {
+      //   // Handle errors and log them
+      //   console.error('Error sending email:', error);
+      //   throw new Error('Email sending failed');
+      //}
+      //?================ RESEND ================
+
+
+
+
+      //?================ NODEMAILER with MailTrap ================
+
+      // Настройка транспортера для Google SMTP
+      const transporter = nodemailer.createTransport({
+         service: 'gmail',
+         auth: {
+            user: process.env.GMAIL_USER, // ваш gmail-адрес
+            pass: process.env.GMAIL_PASS, // ваш gmail-пароль или "App Password" при включенной двухфакторной аутентификации
+         },
+      });
+
+      // Настройка параметров письма
+      const mailOptions = {
+         from: process.env.GMAIL_USER,
+         to: email,
+         subject: emailType === 'VERIFY' ? 'Verify your email' : 'Reset your password',
+         html: `<p>Click <a href="${process.env.NEXT_PUBLIC_API_URL}/${emailType === 'VERIFY' ? 'verifyemail' : 'resetpwd'}?token=${token}">here</a> to ${emailType === 'VERIFY' ? 'verify your email' : 'reset your password'}.</p>`,
+      };
+
+      // Отправка письма
+      try {
+         const mailResponse = await transporter.sendMail(mailOptions);
+         console.log('Email sent successfully:', mailResponse);
+         return mailResponse;
+      } catch (err: any) {
+         console.error('Error sending email:', err);
+         throw new Error('Email sending failed');
+      }
 
    } catch (err: any) {
       throw new Error(err.message)
